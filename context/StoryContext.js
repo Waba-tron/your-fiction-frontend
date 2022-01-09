@@ -30,18 +30,24 @@ export const StoryProvider = ({ children }) => {
     }
   };
 
-  const getUserStories = async () => {
-    if (user) {
-      const res = await fetch(`${API_URL}/stories?user.id=${user.id}`);
+  const getUserStories = async (id) => {
+    const chosenId = id;
 
-      const data = await res.json();
+    if (id) {
+      chosenId = id;
+    } else if (user && id == null) {
+      chosenId = user.id;
+    }
 
-      if (res.ok) {
-        setUserStories(data);
-      } else {
-        setUserStories([]);
-        console.log(data);
-      }
+    const res = await fetch(`${API_URL}/stories?user.id=${chosenId}`);
+
+    const data = await res.json();
+
+    if (res.ok) {
+      setUserStories(data);
+    } else {
+      setUserStories([]);
+      console.log(data);
     }
   };
 

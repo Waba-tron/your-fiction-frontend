@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Layout from "../../components/Layout";
+import router from "next/router";
+import ReviewContext from "../../context/ReviewContext";
 const Story = ({ story }) => {
   const [select, setselect] = useState(1);
   const [chapters, setchapters] = useState(story.chapters);
   const [chosenChapter, setchosenChapter] = useState();
+  const { formData, setreviewData } = useContext(ReviewContext);
 
   return (
     <Layout>
@@ -12,18 +15,29 @@ const Story = ({ story }) => {
           <h1 className="mt-auto mb-auto text-4xl font-bold ">
             {story.StoryTitle}
           </h1>
-          <select
-            class="form-select block w-50 mt-1"
-            onChange={(e) => {
-              setselect(e.target.value);
-            }}
-          >
-            {story.chapters.map((chapter) => (
-              <option value={chapter.ChapterNumber}>
-                {chapter.ChapterNumber}. {chapter.ChapterTitle}
-              </option>
-            ))}
-          </select>
+          <div>
+            <select
+              class="form-select block w-50 mt-1"
+              onChange={(e) => {
+                setselect(e.target.value);
+              }}
+            >
+              {story.chapters.map((chapter) => (
+                <option value={chapter.ChapterNumber}>
+                  {chapter.ChapterNumber}. {chapter.ChapterTitle}
+                </option>
+              ))}
+            </select>
+            <button
+              className=" bg-blue-600"
+              onClick={() => {
+                formData(select);
+                router.push("/reviews/create");
+              }}
+            >
+              Review{" "}
+            </button>
+          </div>
         </div>
         {chapters
           .filter((chapter) => chapter.ChapterNumber == select)
