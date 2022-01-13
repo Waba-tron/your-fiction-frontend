@@ -6,13 +6,17 @@ import { API_URL } from "../../../config";
 import UserStoryCard from "../../../components/UserStoryCard";
 import cookie from "cookie";
 import Modal from "../../../components/Modal";
-const StoryTabList = () => {
-  const { userStories, getUserStories } = useContext(StoryContext);
+import { ToastContainer, toast } from "react-toastify";
+
+const StoryTabList = ({ token }) => {
+  const [uStories, setuStories] = useState([]);
+  const { userStories } = useContext(StoryContext);
+
   const [story, setStory] = useState({ id: "", title: "" });
   const [showModal, setshowModal] = useState(false);
   useEffect(() => {
-    getUserStories();
-  }, []);
+    setuStories(userStories);
+  }, [userStories]);
 
   const showDeleteModal = (storyId, title) => {
     setshowModal(true);
@@ -20,15 +24,32 @@ const StoryTabList = () => {
     setStory({ ...story, id: storyId, title, title });
   };
 
-  const deleteStory = (id) => {
-    console.log(id);
+  const deleteStory = async (id) => {
+    const res = await fetch(`${API_URL}/stories/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast.error(data.message);
+    } else {
+      toast.success("Story was deleted");
+      setshowModal(false);
+      const newStories = uStories.filter((story) => story.id !== id);
+      setuStories(newStories);
+    }
   };
   return (
     <Layout>
+      <ToastContainer />
       <div className=" p-4">
         <h1 className=" text-3xl">Published Stories</h1>
-        {userStories &&
-          userStories.map((sto) => (
+        {uStories &&
+          uStories.map((sto) => (
             <UserStoryCard
               story={sto}
               key={sto.id}
