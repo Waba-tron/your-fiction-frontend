@@ -44,7 +44,7 @@ const UserStoryCard = ({ story, handleDelete }) => {
           </button>
           <button
             className="bg-red-600 mt-0.5 ml-1 text-white py-1 px-4 rounded-lg"
-            onClick={() => handleDelete(story.id)}
+            onClick={() => handleDelete()}
           >
             Delete Story
           </button>

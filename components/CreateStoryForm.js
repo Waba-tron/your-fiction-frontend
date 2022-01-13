@@ -58,7 +58,7 @@ const CreateStoryForm = ({ token }) => {
     <div className=" flex">
       <div className=" text-gray-700 m-auto">
         <ToastContainer />
-        {console.log(userStories)}
+
         {pageDisplay()}
 
         <div className=" mt-3">

@@ -3,7 +3,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
 const ChapterRow = ({ chapter }) => {
   return (
-    <tr className="">
+    <tr className="odd:bg-green even:bg-gray-100">
       <td className="w-2/12">{chapter.ChapterNumber}</td>
       <td className="w-9/12">{chapter.ChapterTitle}</td>
       <td className="w-1/12">
