@@ -6,6 +6,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
 import ChapterRow from "../../../../components/ChapterRow";
 import Link from "next/link";
+
 const StoryEditContent = ({ chapters, storyTitle, id }) => {
   return (
     <Layout>

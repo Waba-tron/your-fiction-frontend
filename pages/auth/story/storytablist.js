@@ -8,15 +8,11 @@ import cookie from "cookie";
 import Modal from "../../../components/Modal";
 import { ToastContainer, toast } from "react-toastify";
 
-const StoryTabList = ({ token }) => {
-  const [uStories, setuStories] = useState([]);
-  const { userStories } = useContext(StoryContext);
+const StoryTabList = ({ token, userStories }) => {
+  const [uStories, setuStories] = useState(userStories);
 
   const [story, setStory] = useState({ id: "", title: "" });
   const [showModal, setshowModal] = useState(false);
-  useEffect(() => {
-    setuStories(userStories);
-  }, [userStories]);
 
   const showDeleteModal = (storyId, title) => {
     setshowModal(true);
@@ -48,6 +44,7 @@ const StoryTabList = ({ token }) => {
       <ToastContainer />
       <div className=" p-4">
         <h1 className=" text-3xl">Published Stories</h1>
+        {console.log(uStories)}
         {uStories &&
           uStories.map((sto) => (
             <UserStoryCard
@@ -88,8 +85,17 @@ export async function getServerSideProps({ req }) {
   if (req.headers.cookie) {
     const { token } = cookie.parse(req.headers.cookie);
 
+    const res = await fetch(`${API_URL}/stories/mystories`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const userStories = await res.json();
+
     if (token) {
-      return { props: { token: token } };
+      return { props: { token, userStories } };
     }
   } else {
     return {

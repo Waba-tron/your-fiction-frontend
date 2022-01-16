@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const UserStoryCard = ({ story, handleDelete }) => {
+  console.log(story);
   const router = useRouter();
   const toStory = (e) => {
     router.push(`/auth/story/story_edit/${story.id}`);
