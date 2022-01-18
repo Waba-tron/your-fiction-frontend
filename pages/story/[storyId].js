@@ -2,9 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import Layout from "../../components/Layout";
 import router from "next/router";
 import ReviewContext from "../../context/ReviewContext";
+import parse from "html-react-parser";
+import styles from "../../styles/chapter.module.css";
 const Story = ({ story }) => {
   const [select, setselect] = useState(1);
-  const [chapters, setchapters] = useState(story.chapters);
+  const [chapters, setchapters] = useState(
+    story.chapters.sort(function (a, b) {
+      return a.ChapterNumber - b.ChapterNumber;
+    })
+  );
   const [chosenChapter, setchosenChapter] = useState();
   const { formData, setreviewData } = useContext(ReviewContext);
 
@@ -45,7 +51,7 @@ const Story = ({ story }) => {
             <div className="shadow-sm bg-white  rounded mt-5 p-2">
               <h1 className="text-xl ">{chapter.ChapterTitle}</h1>
 
-              <p>{chapter.ChapterBody}</p>
+              <p className={styles.space}>{parse(chapter.ChapterBody)}</p>
             </div>
           ))}
       </div>

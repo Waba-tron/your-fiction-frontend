@@ -6,8 +6,9 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
 import ChapterRow from "../../../../components/ChapterRow";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 const StoryEditContent = ({ chapters, storyTitle, id }) => {
+  const router = useRouter();
   return (
     <Layout>
       <div className=" p-4">
@@ -34,6 +35,14 @@ const StoryEditContent = ({ chapters, storyTitle, id }) => {
               ))}
             </tbody>
           </table>
+          <button
+            className="bg-blue-600 text-white py-2 px-6 rounded-lg"
+            onClick={() =>
+              router.push(`/auth/story/chapters/new_chapter/${id}`)
+            }
+          >
+            Post new Chapter
+          </button>
         </div>
       </div>
     </Layout>
@@ -49,7 +58,9 @@ export async function getServerSideProps(context) {
 
   const data = await res.json();
 
-  const chapters = data.chapters;
+  const chapters = data.chapters.sort(function (a, b) {
+    return a.ChapterNumber - b.ChapterNumber;
+  });
 
   const storyTitle = data.StoryTitle;
 

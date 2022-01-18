@@ -30,7 +30,7 @@ const StoryEdit = ({ story, token }) => {
           toast.error("Unauthorized");
           return;
         }
-        toast.error("Story already has that title");
+        toast.error("A Chapter already has that title");
       } else {
         toast.success("Story updated");
       }
