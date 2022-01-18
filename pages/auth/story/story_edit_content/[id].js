@@ -17,7 +17,7 @@ const StoryEditContent = ({ chapters, storyTitle, id }) => {
         <div className="p-4">
           <h1 className="text-2xl font-med">Story Chapters</h1>
 
-          <table class="table-auto">
+          <table class="table-auto mt-2">
             <thead>
               <tr className=" bg-blue-600 text-left p-2 ">
                 <th className="w-2/12">Chapter Number</th>
