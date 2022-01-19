@@ -5,10 +5,14 @@ import cookie from "cookie";
 import { API_URL } from "../../../../../config";
 import styles from "../../../../../styles/chapter.module.css";
 import { ToastContainer, toast } from "react-toastify";
-const NewChapter = ({ token }) => {
+const NewChapter = ({ token, id, StoryTitle, chapters }) => {
   const router = useRouter();
   const editorRef = useRef();
   const [editorLoaded, setEditorLoaded] = useState(false);
+  const [title, setTitle] = useState("");
+  const [data, setData] = useState("");
+  const [chapterNumber, setchapterNumber] = useState();
+
   const { CKEditor, ClassicEditor } = editorRef.current || {};
 
   useEffect(() => {
@@ -18,11 +22,9 @@ const NewChapter = ({ token }) => {
     };
     setEditorLoaded(true);
   }, []);
-  const [title, setTitle] = useState("");
-  const [data, setData] = useState("");
 
   const createChapter = async (e) => {
-    if (!data || !title) {
+    if (!data || !title || !chapterNumber) {
       toast.error(`Please fill in all the inputs`);
     } else {
       const res = await fetch(`${API_URL}/chapters`, {
@@ -34,19 +36,20 @@ const NewChapter = ({ token }) => {
         body: JSON.stringify({
           ChapterTitle: title,
           ChapterBody: data,
-          ChapterNumber: 4,
-          story: 5,
+          ChapterNumber: chapterNumber,
+          story: id,
         }),
       });
-
+      const data = await res.json();
       if (!res.ok) {
         if (res.status === 403 || res.status === 401) {
-          toast.error("Unauthorized");
+          toast.error(`${data.message}`);
+          console.log(data.message);
           return;
         }
         toast.error("Chapter may already have that title");
       } else {
-        router.push(`/auth/story/story_edit_content/5`);
+        router.push(`/auth/story/story_edit_content/${id}`);
       }
     }
   };
@@ -54,15 +57,28 @@ const NewChapter = ({ token }) => {
     <Layout>
       <ToastContainer />
       <div className=" p-4">
-        <h1 className="text-4xl font-bold mb-4 ">Add new chapter to story</h1>
-        <input
-          type="text"
-          placeholder="Title"
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
-          className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-bg-blue-600 rounded-md"
-          required
-        />
+        <h1 className="text-4xl font-bold mb-4 ">
+          Add new chapter to story {StoryTitle}
+        </h1>
+        <div className="my-3">
+          <input
+            type="text"
+            placeholder="Title"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+            className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-bg-blue-600 rounded-md"
+            required
+          />
+          <input
+            type="number"
+            placeholder="Chapter Number"
+            onChange={(e) => setchapterNumber(e.target.value)}
+            value={chapterNumber}
+            className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-bg-blue-600 rounded-md"
+            required
+          />
+        </div>
+
         {editorLoaded ? (
           <div className={styles.Space}>
             <CKEditor
@@ -89,12 +105,20 @@ const NewChapter = ({ token }) => {
 
 export default NewChapter;
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ params: { id }, req }) {
   if (req.headers.cookie) {
     const { token } = cookie.parse(req.headers.cookie);
 
+    const res = await fetch(`${API_URL}/stories/${id}`);
+
+    const data = await res.json();
+
+    const StoryTitle = data.StoryTitle;
+
+    const chapters = data.chapters;
+
     if (token) {
-      return { props: { token } };
+      return { props: { token, id, StoryTitle, chapters } };
     }
   } else {
     return {
