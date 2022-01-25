@@ -37,7 +37,7 @@ const Story = ({ story }) => {
             <button
               className=" bg-blue-600"
               onClick={() => {
-                formData(select);
+                formData(select, story);
                 router.push("/reviews/create");
               }}
             >

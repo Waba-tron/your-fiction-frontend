@@ -44,7 +44,7 @@ const StoryTabList = ({ token, userStories }) => {
       <ToastContainer />
       <div className=" p-4">
         <h1 className=" text-3xl">Published Stories</h1>
-        {console.log(uStories)}
+
         {uStories &&
           uStories.map((sto) => (
             <UserStoryCard

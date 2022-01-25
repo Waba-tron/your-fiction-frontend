@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
-const ChapterRow = ({ chapter }) => {
+const ChapterRow = ({ chapter, handleDelete }) => {
   const router = useRouter();
   const toChapter = (id) => {
     router.push(`/auth/story/chapters/edit_chapter/${id}`);
@@ -21,7 +21,10 @@ const ChapterRow = ({ chapter }) => {
         </button>
       </td>
       <td className="w-1/12">
-        <button className="bg-blue-600 shadow-sm p-2 flex flex-col text-center text-white items-center text-2xl cursor-pointer">
+        <button
+          className="bg-blue-600 shadow-sm p-2 flex flex-col text-center text-white items-center text-2xl cursor-pointer"
+          onClick={() => handleDelete()}
+        >
           <AiOutlineDelete />
         </button>
       </td>

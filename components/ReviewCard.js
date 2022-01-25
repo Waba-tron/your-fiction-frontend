@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+
 const ReviewCard = ({ review }) => {
   const router = useRouter();
   const toStory = (e) => {
@@ -18,7 +19,10 @@ const ReviewCard = ({ review }) => {
         <div className=" my-auto">
           <div className="flex gap-2">
             <Link href={`/reviews/f`}>
-              <a className=" text-yellow-500">Test user</a>
+              <a className=" text-yellow-500">
+                {console.log(review)}
+                {review.user && review.user.username}
+              </a>
             </Link>
             <label className=" text-gray-400">
               Chapter {review.ChapterNumber} -
@@ -27,17 +31,7 @@ const ReviewCard = ({ review }) => {
           </div>
 
           <p className="text-gray-500  overflow-ellipsis overflow-hidden">
-            {review.ReviewBody}n publishing and graphic design, Lorem ipsum is a
-            placeholder text commonly used to demonstrate the visual form of a
-            docum publishing and graphic design, Lorem ipsum is a placeholder
-            text commonly used to demonstrate the visual form of a docum
-            publishing and graphic design, Lorem ipsum is a placeholder text
-            commonly used to demonstrate the visual form of a docum publishing
-            and graphic design, Lorem ipsum is a placeholder text commonly used
-            to demonstrate the visual form of a docum publishing and graphic
-            design, Lorem ipsum is a placeholder text commonly used to
-            demonstrate the visual form of a docum publishing and graphic
-            design, Lorem ipsum is a placeholder text commonly used to
+            {review.ReviewBody}
           </p>
           <p className=" text-gray-400">Chapters: f</p>
         </div>

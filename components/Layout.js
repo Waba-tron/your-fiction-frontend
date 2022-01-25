@@ -17,7 +17,7 @@ const Layout = ({ title, keywords, description, children }) => {
       </Head>
       <Header />
 
-      <div className="font-press-start h-screen   ">{children}</div>
+      <div className="font-press-start">{children}</div>
     </div>
   );
 };

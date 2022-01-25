@@ -9,8 +9,7 @@ const NewChapter = ({ token, id, StoryTitle, chapters }) => {
   const router = useRouter();
   const editorRef = useRef();
   const [editorLoaded, setEditorLoaded] = useState(false);
-  const [title, setTitle] = useState("");
-  const [data, setData] = useState("");
+
   const [chapterNumber, setchapterNumber] = useState();
 
   const { CKEditor, ClassicEditor } = editorRef.current || {};
@@ -23,10 +22,15 @@ const NewChapter = ({ token, id, StoryTitle, chapters }) => {
     setEditorLoaded(true);
   }, []);
 
+  const [title, setTitle] = useState("");
+  const [chapterBody, setchapterBody] = useState("");
+
   const createChapter = async (e) => {
-    if (!data || !title || !chapterNumber) {
+    if (!chapterBody || !title || !chapterNumber) {
       toast.error(`Please fill in all the inputs`);
     } else {
+      console.log(chapterBody);
+
       const res = await fetch(`${API_URL}/chapters`, {
         method: "POST",
         headers: {
@@ -35,7 +39,7 @@ const NewChapter = ({ token, id, StoryTitle, chapters }) => {
         },
         body: JSON.stringify({
           ChapterTitle: title,
-          ChapterBody: data,
+          ChapterBody: chapterBody,
           ChapterNumber: chapterNumber,
           story: id,
         }),
@@ -49,6 +53,7 @@ const NewChapter = ({ token, id, StoryTitle, chapters }) => {
         }
         toast.error("Chapter may already have that title");
       } else {
+        console.log(data);
         router.push(`/auth/story/story_edit_content/${id}`);
       }
     }
@@ -83,21 +88,27 @@ const NewChapter = ({ token, id, StoryTitle, chapters }) => {
           <div className={styles.Space}>
             <CKEditor
               editor={ClassicEditor}
-              data={data}
+              data={`${chapterBody}`}
               onReady={(editor) => {
                 // You can store the "editor" and use when it is needed.
                 console.log("Editor is ready to use!", editor);
               }}
               onChange={(event, editor) => {
                 const data = editor.getData();
-                setData(data);
+                setchapterBody(data);
+                console.log(data);
               }}
             />
           </div>
         ) : (
           <p>Carregando...</p>
         )}
-        <button onClick={createChapter}>Publish chapter</button>
+        <button
+          className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-800 mt-2"
+          onClick={createChapter}
+        >
+          Publish chapter
+        </button>
       </div>
     </Layout>
   );
