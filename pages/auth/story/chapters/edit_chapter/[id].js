@@ -55,53 +55,70 @@ const EditChapter = ({ token, chapter }) => {
   return (
     <Layout>
       <ToastContainer />
-      <div className=" p-4">
-        <h1 className="text-4xl font-bold ">Editing Story: {title}</h1>
+      <div className=" bg-gray-50 p-10  flex">
+        <div className=" bg-white m-auto w-full">
+          <div className="h-2 bg-blue-600 rounded-t-md"></div>
+          <div className=" p-6">
+            <h1 className="text-4xl font-bold ">Editing Story: {title}</h1>
 
-        <div className="my-3">
-          <input
-            type="text"
-            placeholder="Title"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-bg-blue-600 rounded-md"
-            required
-          />
-          <input
-            type="number"
-            placeholder="Chapter Number"
-            onChange={(e) => setchapterNumber(e.target.value)}
-            value={chapterNumber}
-            className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-bg-blue-600 rounded-md"
-            required
-          />
-        </div>
+            <div className="my-3">
+              <input
+                type="text"
+                placeholder="Title"
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-bg-blue-600 rounded-md"
+                required
+              />
+              <input
+                type="number"
+                placeholder="Chapter Number"
+                onChange={(e) => setchapterNumber(e.target.value)}
+                value={chapterNumber}
+                className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-bg-blue-600 rounded-md"
+                required
+              />
+            </div>
 
-        {editorLoaded ? (
-          <div className={styles.Space}>
-            <CKEditor
-              editor={ClassicEditor}
-              data={chapterBody}
-              onReady={(editor) => {
-                // You can store the "editor" and use when it is needed.
-                console.log("Editor is ready to use!", editor);
-              }}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                setchapterBody(data);
-              }}
-            />
+            {editorLoaded ? (
+              <div className={styles.Space}>
+                <CKEditor
+                  editor={ClassicEditor}
+                  data={chapterBody}
+                  config={{
+                    toolbar: [
+                      "heading",
+                      "|",
+                      "bold",
+                      "italic",
+
+                      "bulletedList",
+                      "numberedList",
+                      "blockQuote",
+                    ],
+                  }}
+                  onReady={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    console.log("Editor is ready to use!", editor);
+                  }}
+                  onChange={(event, editor) => {
+                    const data = editor.getData();
+                    setchapterBody(data);
+                  }}
+                />
+              </div>
+            ) : (
+              <p>Loading...</p>
+            )}
+
+            <button
+              className="bg-blue-600 my-5 text-white py-2 px-6 rounded-lg  hover:bg-blue-800"
+              onClick={updateChapter}
+            >
+              Update Story
+            </button>
           </div>
-        ) : (
-          <p>Loading...</p>
-        )}
-
-        <button
-          className="bg-blue-600 mt-2 text-white py-2 px-6 rounded-lg  hover:bg-blue-800"
-          onClick={updateChapter}
-        >
-          Update Story
-        </button>
+        </div>
       </div>
     </Layout>
   );

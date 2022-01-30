@@ -45,7 +45,7 @@ const StoryEditContent = ({ chapters, storyTitle, id, token }) => {
   return (
     <Layout>
       <ToastContainer />
-      <div className=" p-4">
+      <div className=" p-8">
         <h1 className="text-4xl font-bold ">Editing Story: {storyTitle}</h1>
         <StorySubNav id={id} />
         <div className="h-2 bg-blue-600 rounded-t-md mt-3"></div>
@@ -80,7 +80,7 @@ const StoryEditContent = ({ chapters, storyTitle, id, token }) => {
             </tbody>
           </table>
           <button
-            className="bg-blue-600 text-white py-2 px-6 rounded-lg m-2"
+            className="bg-blue-600 text-white py-2 px-6 rounded-lg m-2 hover:bg-blue-800"
             onClick={() =>
               router.push(`/auth/story/chapters/new_chapter/${id}`)
             }

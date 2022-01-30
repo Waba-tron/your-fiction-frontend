@@ -6,7 +6,9 @@ import StoryCategoryInfo from "./StoryCategoryInfo";
 import StoryInfo from "./StoryInfo";
 import { ToastContainer, toast } from "react-toastify";
 import { API_URL } from "../config";
+import { useRouter } from "next/router";
 const CreateStoryForm = ({ token }) => {
+  const router = useRouter();
   const { categoryData, userStories, getUserStories } =
     useContext(StoryContext);
   const { user } = useContext(AuthContext);
@@ -32,7 +34,8 @@ const CreateStoryForm = ({ token }) => {
 
       const data = await res.json();
       if (res.ok) {
-        toast.success("Story published");
+        console.log(data);
+        router.push(`/auth/story/story_edit/${data.id}`);
       } else {
         toast.error(data.message);
       }
@@ -56,9 +59,8 @@ const CreateStoryForm = ({ token }) => {
 
   return (
     <div className=" flex">
+      <ToastContainer />
       <div className=" text-gray-700 m-auto">
-        <ToastContainer />
-
         {pageDisplay()}
 
         <div className=" mt-3">

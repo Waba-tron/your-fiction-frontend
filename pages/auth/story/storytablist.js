@@ -42,7 +42,7 @@ const StoryTabList = ({ token, userStories }) => {
   return (
     <Layout>
       <ToastContainer />
-      <div className=" p-4">
+      <div className="p-4">
         <h1 className=" text-3xl">Published Stories</h1>
 
         {uStories &&

@@ -42,7 +42,7 @@ const StoryCard = ({ story }) => {
             Published {story.published_at}
           </p>
           <button
-            className=" bg-blue-600 mt-0.5 text-white py-1 px-4 rounded-lg"
+            className=" bg-blue-600 mt-0.5 text-white py-1 px-4 rounded-lg hover:bg-blue-800"
             onClick={toStory}
           >
             Read now

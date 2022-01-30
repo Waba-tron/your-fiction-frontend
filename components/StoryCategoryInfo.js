@@ -14,7 +14,6 @@ const StoryCategoryInfo = ({ categorys, formData, setFormData }) => {
   return (
     <div className="grid md:grid-cols-2">
       <div className=" mr-20  ">
-        <ToastContainer />
         <h1 className=" text-2xl mb-2">Select Category</h1>
         {categorys &&
           categorys.map((category) => (

@@ -39,7 +39,7 @@ const StoryEdit = ({ story, token }) => {
   return (
     <Layout>
       <ToastContainer />
-      <div className="p-4 bg-gray-50">
+      <div className="p-8 bg-gray-50">
         <h1 className="text-4xl font-bold ">Editing Story: {storyTitle}</h1>
         <StorySubNav id={story.id} />
 

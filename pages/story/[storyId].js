@@ -4,6 +4,7 @@ import router from "next/router";
 import ReviewContext from "../../context/ReviewContext";
 import parse from "html-react-parser";
 import styles from "../../styles/chapter.module.css";
+import { MdOutlineRateReview } from "react-icons/md";
 const Story = ({ story }) => {
   const [select, setselect] = useState(1);
   const [chapters, setchapters] = useState(
@@ -35,13 +36,14 @@ const Story = ({ story }) => {
               ))}
             </select>
             <button
-              className=" bg-blue-600"
+              className=" bg-blue-600 text-white flex justify-center gap-2 text-center w-full mx-auto p-1 items-center hover:bg-blue-800"
               onClick={() => {
                 formData(select, story);
                 router.push("/reviews/create");
               }}
             >
-              Review{" "}
+              Add Review
+              <MdOutlineRateReview size="30" />
             </button>
           </div>
         </div>

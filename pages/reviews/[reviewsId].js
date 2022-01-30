@@ -53,21 +53,6 @@ export async function getServerSideProps(context) {
     `,
   });
 
-  console.log({ data });
-
-  /*
-  const { reviewsId } = context.params;
-  const res = await fetch(`http://localhost:1337/stories/${reviewsId}`);
-
-  const data = await res.json();
-
-  const reviews = data.reviews;
-  const StoryTitle = data.StoryTitle;
-
-  return {
-    props: { reviews, StoryTitle },
-  };
-  */
   return {
     props: { data },
   };
