@@ -22,15 +22,15 @@ const Story = ({ story }) => {
           <h1 className="mt-auto mb-auto text-4xl font-bold ">
             {story.StoryTitle}
           </h1>
-          <div>
+          <div className="w-40">
             <select
-              class="form-select block w-50 mt-1"
+              class="form-select block w-40 mt-1"
               onChange={(e) => {
                 setselect(e.target.value);
               }}
             >
               {story.chapters.map((chapter) => (
-                <option value={chapter.ChapterNumber}>
+                <option className=" w-40" value={chapter.ChapterNumber}>
                   {chapter.ChapterNumber}. {chapter.ChapterTitle}
                 </option>
               ))}

@@ -64,14 +64,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    router.push("/");
+    if (router.pathname.includes("auth")) {
+      router.push("/auth/login");
+    }
+
     const res = await fetch(`${NEXT_URL}/api/logout`, { method: "POST" });
 
     if (res.ok) {
       setUser(null);
     }
-
-    console.log("Logged out");
   };
 
   const checkUserLoggedIn = async () => {
