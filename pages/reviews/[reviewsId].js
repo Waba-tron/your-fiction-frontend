@@ -3,8 +3,7 @@ import Layout from "../../components/Layout";
 import ReviewCard from "../../components/ReviewCard";
 
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-
-import { API_URL } from "../../config";
+import client from "../../hooks/client";
 const Reviews = ({ data }) => {
   return (
     <Layout>
@@ -28,10 +27,12 @@ export async function getServerSideProps(context) {
   console.log(context.params);
   const { reviewsId } = context.params;
 
+  /*
   const client = new ApolloClient({
     uri: `${API_URL}/graphql`,
     cache: new InMemoryCache(),
   });
+  */
 
   const { data } = await client.query({
     query: gql`

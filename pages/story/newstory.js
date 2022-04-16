@@ -21,53 +21,15 @@ const Newstory = ({ token }) => {
       <div className="p-20 bg-gray-100 h-screen m-auto">
         <div className="h-2 bg-blue-600 rounded-t-md"></div>
         <div className="bg-white grid md:grid-cols-2 h-full ">
-          {
-            /*
-            <div className="py-12 px-8 m-auto">
-              <h1 className="text-4xl mt-1 text-center font-light">
-                First choose your category
-              </h1>
-              <button className="mt-4 bg-blue-600 text-white py-2 px-6 rounded-lg w-full hover:bg-blue-800">
-                Select category
-              </button>
-            </div>
-              <form className="" className="py-12 px-8 ">
-              <h1 className="text-4xl mt-1 text-center font-light">
-                Publish your story
-              </h1>
-              <label className="block font-semibold mt-2">Title</label>
-              <input
-                type="text"
-                placeholder="title"
-                className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-bg-blue-600 rounded-md"
-              />
-
-              <label className="block font-semibold mt-2">Genre</label>
-              <input
-                type="text"
-                placeholder="Genre"
-                className=" border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-bg-blue-600 rounded-md"
-              />
-
-              <label className="block font-semibold mt-2">Summary</label>
-              <textarea
-                type="text"
-                rows="1"
-                className="border w-full px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-bg-blue-600 rounded-md"
-              />
-                          </form>
-*/
-
-            <div className="py-12 px-8 flex flex-col items-center m-auto">
-              <h1 className="text-4xl text-center font-light">Create Story</h1>
-              <button
-                onClick={() => setshowModal(true)}
-                className="mt-7  bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-800"
-              >
-                New Story
-              </button>
-            </div>
-          }
+          <div className="py-12 px-8 flex flex-col items-center m-auto">
+            <h1 className="text-4xl text-center font-light">Create Story</h1>
+            <button
+              onClick={() => setshowModal(true)}
+              className="mt-7  bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-800"
+            >
+              New Story
+            </button>
+          </div>
 
           <div className="bg-blue-600 shadow-sm p-12 flex flex-col text-center text-white items-center text-2xl ">
             <div className="m-auto text-9xl ">
